@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flexbox</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap">
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box; 
+        }
+
+        *{
+            margin: 0; 
+            padding: 0; 
+        }
+
+        ul[role='list'], ol[role='list']{
+            list-style: none; 
+        }
+
+        html:focus-within{
+            scroll-behavior: smooth; 
+        }
+
+        a:not([class]){
+            text-decoration-skip-ink: auto; 
+        }
+
+        img, picture, svg, video, canvas{
+            max-width: 100%;
+            height: auto; 
+            vertical-align: middle; 
+            font-style: italic; 
+            background-repeat: no-repeat; 
+            background-size: cover;
+        }
+
+        input, button, textarea, select{
+            font: inherit; 
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            html:focus-within {
+                scroll-behavior: auto;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+                transition: none;
+            }
+        }
+
+        body, html{
+            height: 100%; 
+            scroll-behavior: smooth; 
+        }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .column-5{width:5%;}.column-10{width:10%;}.column-15{width:15%;}.column-20{width:20%;}.column-25{width:25%;}
+        .column-30{width:30%;}.column-35{width:35%;}.column-40{width:40%;}.column-45{width:45%;}.column-50{width:50%;}
+        .column-55{width:55%;}.column-60{width:60%;}.column-65{width:65%;}.column-70{width:70%;}.column-75{width:75%;}
+        .column-80{width: 80%;}.column-85{width: 85%;}.column-90{width: 90%;}.column-95{width: 95%;}.column-100{width: 100%;}
+
+        .content-frame {
+            width: 100%;
+            max-width: 1000px; /* Adjust the max-width as needed */
+            margin: 0 auto;
+            padding: 0px 10px;
+            display: flex; /* Add display: flex to center horizontally */
+            justify-content: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0px; /* Negative margin to account for item margins */
+            width: 100%;
+        }
+        .row {
+            flex: 0 0 auto;
+            width: 100%; /* Adjust the width as needed */
+            background-color: #fff;
+        }
+        .header_section {
+            background-color: #314b58;
+            color: #fff;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;/* Prevent wrapping */
+            max-width: 1000px;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .header_service_box {
+            /*flex: 0 0 60%;*/
+        }
+        .header_service_map {
+            /*flex: 0 0 40%;*/
+        }
+        .header_service_map img {
+            width: 100%;
+            height: 100%;
+        }
+        .service_title {
+            text-align: left;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            padding-left: 15px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+        .image-container {
+            padding-left: 15px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap; /* Prevent wrapping */
+        }
+        .service_image_box {
+            width: 25%;
+            border-radius: 100%;
+            padding-right: 15px;
+        }
+        .service_image_box a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .service_image_box img {
+            width: 100%;
+        }
+        .service_heading {
+            text-align: center;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-size: 1em;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        a {
+            color: #ab3c3c;
+        }
+
+        /*section 2*/
+        .p_heading {
+            text-align: left;
+            margin-bottom: 20px;
+            width: 100%;
+            font-family: 'Roboto Slab', serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: #ab3c3c;
+        }
+        .location_section {
+            padding-top: 15px;
+        }
+        .location_section_box {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .location_section_box_a {
+          
+        }
+        .location_section_box_b {
+            
+            padding-left: 20px;
+            font-family: Helvetica, Arial;
+            font-size: 0.9em;
+            line-height: 24px;
+            color: #314b57;
+            text-align: left;
+        }
+        .location_section_box_a img {
+            width: 100%;
+            height: auto;
+        }
+        .p_text_mg {
+            margin-bottom: 10px;
+        }
+        .blog_section {
+            display: flex;
+            flex-wrap: wrap; /* Allow columns to wrap to a new line on smaller screens */
+            justify-content: space-between; /* Create space between columns */
+
+            margin: 30px 0;
+            font-family: Helvetica, Arial;
+            font-size: 0.9em;
+            line-height: 24px;
+            color: #314b57;
+            text-align: left;
+        }
+        .column {
+            width: 32%; /* Adjust width as needed */
+        }
+        .blog_img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        header {
+            background-color: #314b57;
+            width: 100%;
+            max-height: fit-content;
+        }
+
+        @media (max-width: 768px) {
+            .column {
+                width: 100%;
+                display: block;
+                padding: 10px 20px;
+            }
+            .column-25 {
+                width: 50%;
+                display: inline-flex;
+                padding: 10px 20px;
+            }
+            .column-70, .column-30 {
+                width: 100%;
+                display: block;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+        <div class="row header_section">
+            <div class="column-70 header_service_box">
+                <h2 class="service_title">HEATING AND AIR CONDITIONING SERVICES</h2>
+                <div class="image-container">
+                    <div class="column-25 service_image_box">
+                        <a href="#">
+                            <img src="img/heating.webp" alt="Heating">
+                            <h3 class="service_heading">Heating</h3>
+                        </a>
+                    </div>
+                    <div class="column-25 service_image_box">
+                        <a href="#">
+                            <img src="img/cooling.webp" alt="Cooling">
+                            <h3 class="service_heading">Cooling</h3>
+                        </a>
+                    </div>
+                    <div class="column-25 service_image_box">
+                        <a href="#">
+                            <img src="img/specials.webp" alt="Free Service Call with Repair">
+                            <h3 class="service_heading">Specials</h3>
+                        </a>
+                    </div>
+                    <div class="column-25 service_image_box">
+                        <a href="#">
+                            <img src="img/plumber-arlington-tx.webp" alt="Plumber">
+                            <h3 class="service_heading">For Plumbing</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="column-30 header_service_map">
+                <a href="#"><img src="img/sub_map.webp" alt="Google Map Location"></a>
+            </div>
+        </div>
+    </header>
+    <div class="content-frame">
+        <div class="container">
+            
+            <div class="row location_section">
+                
+                <p class="p_heading">OUR SERVICE AREA</p>
+
+                <div class="location_section_box">
+                    <div class="column-30 location_section_box_a">
+                        <img src="img/our-service-area.webp" alt="Our Service Area">
+                    </div>
+                    <div class="column-70 location_section_box_b">
+                        <p class="p_text_mg">
+                            Minuteman Heating & Air serves Fort Worth, Arlington, Aleda, Alvarado and the surrounding areas with first quality services you can rely upon. Our certified technicians have the experience necessary to ensure a professional repair, installation and maintenance of your heating and air conditioning system, and the skills needed to ensure the job is done right the first time. You are our first priority, and we are dedicated to your comfort and satisfaction. Contact us today to schedule your service, or a free estimate for a new HVAC system for residental or commercial applications.
+                        </p>
+                        <p>
+                            <a href="#">Repair Service Areas</a><br>
+                            <a href="#">Air Conditioning Repair Service Areas</a>
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row blog_section">
+                <p class="p_heading">Helpful Heating and Air Articles</p>
+                <div class="column">
+                    <a href="#"><img src="img/blog1.webp" class="blog_img" alt="The Value of Design and Right Sizing by Arlington HVAC Contractors"></a>
+                    <p>
+                        Before the not-so-cold winter arrived in Arlington this year, we were looking at the importance of heating, ventilation, and air conditioning (HVAC) contractors. In this...
+                    </p>
+                    <p>
+                        <a href="#">Read More</a> 
+                    </p>
+                </div>
+                <div class="column">
+                    <a href="#"><img src="img/blog2.webp" class="blog_img" alt="Arlington HVAC Tips for Uneven Heat"></a>
+                    <p>
+                        Uneven heat. It may be the No. 1 complaint among Arlington homeowners all winter, no matter how cold it is. Many people who have multi-level...
+                    </p>
+                    <p>
+                        <a href="#">Read More</a> 
+                    </p>
+                </div>
+                <div class="column">
+                    <a href="#"><img src="img/blog3.webp" class="blog_img" alt="Arlington HVAC Tips for Troubleshooting Furnaces"></a>
+                    <p>
+                        Fortunately for Arlington homeowners, the winner of 2016 has been, for the most part, pretty darn warm (knock on wood). There's still some cold days...
+                    </p>
+                    <p>
+                        <a href="#">Read More</a> 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
